@@ -58,4 +58,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Mobile specific: Listen for 'Enter' key? Maybe not on textarea.
+
+    // Speech Recognition Setup
+    const micBtn = document.getElementById('mic-btn');
+
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        recognition.continuous = false;
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+
+        micBtn.addEventListener('click', () => {
+            if (micBtn.classList.contains('listening')) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        });
+
+        recognition.onstart = () => {
+            micBtn.classList.add('listening');
+            englishInput.placeholder = "Listening...";
+        };
+
+        recognition.onend = () => {
+            micBtn.classList.remove('listening');
+            englishInput.placeholder = "Type something here...";
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            englishInput.value = transcript;
+            // Auto-trigger translation
+            translateBtn.click();
+        };
+
+        recognition.onerror = (event) => {
+            console.error("Speech recognition error", event.error);
+            micBtn.classList.remove('listening');
+            englishInput.placeholder = "Error hearing you. Try again.";
+        };
+    } else {
+        micBtn.style.display = 'none'; // Hide if not supported
+        console.log("Web Speech API not supported in this browser.");
+    }
+
 });
