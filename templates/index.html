@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English to Kannada Translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Google Fonts for premium look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Translator <span class="accent">AI</span></h1>
+            <p>English to Kannada with Voice</p>
+        </header>
+
+        <main class="translator-box">
+            <div class="input-group">
+                <label for="english-text">English</label>
+                <textarea id="english-text" placeholder="Type something here..."></textarea>
+            </div>
+
+            <div class="controls">
+                <button id="translate-btn">
+                    <span>Translate</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+                </button>
+            </div>
+
+            <div class="output-group">
+                <label for="kannada-text">Kannada</label>
+                <div class="output-wrapper">
+                    <textarea id="kannada-text" readonly placeholder="Translation will appear here..."></textarea>
+                    <button id="play-audio-btn" disabled aria-label="Play Audio">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                    </button>
+                </div>
+            </div>
+            
+            <audio id="audio-player" hidden></audio>
+        </main>
+        
+        <footer>
+            <p>Powered by Google Translate & gTTS</p>
+        </footer>
+    </div>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
